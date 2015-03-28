@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
 	public float f_Speed = 10f;
 	public float f_RunSpeed = 15f;
-	public Vector3 teleportPoint;
+	public float f_Jump = 20f; 
 	public Rigidbody2D rb_RigidBody2D;
 
 	//Check this line of code in the future.
@@ -14,12 +14,15 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		//Getting the RigidBodyComponent 
 		rb_RigidBody2D = GetComponent<Rigidbody2D> ();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		//MOVEMENT
+
 		//Gets Left Arrow Input to move left
 		if(Input.GetKey(KeyCode.LeftArrow) == true)
 		{
@@ -45,5 +48,7 @@ public class Player : MonoBehaviour
 				rb_RigidBody2D.MovePosition (transform.position + transform.right * Time.deltaTime * f_RunSpeed);
 			}
 		}
+
+
 	}
 }
