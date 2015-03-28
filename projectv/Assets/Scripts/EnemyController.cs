@@ -11,6 +11,8 @@ public class EnemyController : MonoBehaviour
 	private float pause_countdown;
 	public float pause_interval;
 
+	public GameObject player;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -36,6 +38,8 @@ public class EnemyController : MonoBehaviour
 				pause_countdown = pause_interval;
 			}
 		}
+
+		Debug.Log("Distance from player: " + Mathf.Abs(transform.position.x - player.transform.position.x));
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
