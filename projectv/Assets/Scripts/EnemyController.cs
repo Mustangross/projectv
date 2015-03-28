@@ -8,23 +8,47 @@ public class EnemyController : MonoBehaviour
 	public int initial_movement_direction;
 	public float movement_speed;
 	public float travel_distance;
+	private float pause_countdown;
+	public float pause_interval;
+
+	public GameObject player;
 
 	// Use this for initialization
 	void Start ()
 	{
 		movement_direction = initial_movement_direction;
 		transform.position = spawn_position;
+		pause_countdown = 0.0f;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		Vector3 pos = transform.position;
-		pos.x += movement_direction * movement_speed;
-		transform.position = pos;
-		if (pos.x >= spawn_position.x + travel_distance || pos.x <= spawn_position.x)
+		if (pause_countdown > 0)
 		{
-			movement_direction = -movement_direction;
+			pause_countdown -= Time.deltaTime;
+		}
+		else
+		{
+			Vector3 pos = transform.position;
+			pos.x += movement_direction * movement_speed;
+			transform.position = pos;
+			if (pos.x >= spawn_position.x + travel_distance || pos.x <= spawn_position.x) {
+				movement_direction = -movement_direction;
+				pause_countdown = pause_interval;
+			}
+		}
+
+		float d1 = Mathf.Abs ((transform.position.x + 0.5f * transform.localScale.x) - (player.transform.position.x - 0.5f * player.transform.localScale.x));
+		float d2 = Mathf.Abs ((transform.position.x - 0.5f * transform.localScale.x) - (player.transform.position.x + 0.5f * player.transform.localScale.x));
+		Debug.Log("Distance from player: " + Mathf.Min(d1, d2));
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			Destroy (gameObject);
 		}
 	}
 }
