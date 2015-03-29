@@ -3,15 +3,17 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour
 {
-	public Vector3 spawn_position;
+	public Vector2 spawn_position;
 	private int movement_direction;
 	public int initial_movement_direction;
 	public float movement_speed;
 	public float travel_distance;
 	private float pause_countdown;
 	public float pause_interval;
-
+	
 	public GameObject player;
+
+	public float health;
 
 	// Use this for initialization
 	void Start ()
