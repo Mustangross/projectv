@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 	public float f_Jump = 100f; 
 	public Rigidbody2D rb_RigidBody2D;
 	public bool b_Grounded = false;
-	private float f_Gravity;
+	private float f_Gravity = 0;
 
 	public float f_airborne_speed_attenuation = 0.1f;
 	public float f_horizontal_jump_force = 50.0f;
