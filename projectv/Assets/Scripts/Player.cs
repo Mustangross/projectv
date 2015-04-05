@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 	public float f_RunSpeed = 15f;
 	public float f_NormalSpeed = 10f;
 	public float f_RunSpeedIncrement = 1f;
+	public float f_RunSpeedDecrement = 0.25f;
 	public float f_JumpIncreament = 1f;
 	public float f_MaxJump = 100f;
 	public float f_Jump = 0f; 
@@ -65,7 +66,11 @@ public class Player : MonoBehaviour
 		else if (Input.GetKey (KeyCode.LeftArrow) == true) 
 		{
 			//Accelerates Player
-			if(f_Speed > f_NormalSpeed)
+			if(!b_Grounded && f_Speed > f_NormalSpeed)
+			{
+				f_Speed -= f_RunSpeedDecrement;
+			}
+			else if(f_Speed > f_NormalSpeed)
 			{
 				f_Speed -= f_RunSpeedIncrement;
 			}
@@ -85,7 +90,11 @@ public class Player : MonoBehaviour
 		else if (Input.GetKey (KeyCode.RightArrow) == true) 
 		{
 			//Accelerates Player
-			if(f_Speed > f_NormalSpeed)
+			if(!b_Grounded && f_Speed > f_NormalSpeed)
+			{
+				f_Speed -= f_RunSpeedDecrement;
+			}
+			else if(f_Speed > f_NormalSpeed)
 			{
 				f_Speed -= f_RunSpeedIncrement;
 			}
