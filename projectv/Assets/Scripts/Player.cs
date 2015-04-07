@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D c2D_Collision)
 	{
 		//Checking if the Player is Grounded 
-		if(c2D_Collision.gameObject.tag == "Ground")
+		if (c2D_Collision.gameObject.tag == "Ground")
 		{
 			b_Grounded = true;
 		}
@@ -142,7 +142,21 @@ public class Player : MonoBehaviour
 		}
 	}
 	
-	
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Obstacle")
+		{
+			ObstacleController obstacle_controller = other.gameObject.GetComponent<ObstacleController>();
+			obstacle_controller.Triggered();
+			Destroy(gameObject);
+		}
+		else if (other.gameObject.tag == "Collectible")
+		{
+			CollectibleController collectible_controller = other.gameObject.GetComponent<CollectibleController>();
+			collectible_controller.Collected();
+			Destroy(other.gameObject);
+		}
+	}
 }
 
 

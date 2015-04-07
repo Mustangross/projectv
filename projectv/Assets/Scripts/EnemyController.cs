@@ -46,9 +46,13 @@ public class EnemyController : MonoBehaviour
 			Pursue ();
 		}
 
-		float d1 = Mathf.Abs ((transform.position.x + 0.5f * transform.localScale.x) - (player.transform.position.x - 0.5f * player.transform.localScale.x));
-		float d2 = Mathf.Abs ((transform.position.x - 0.5f * transform.localScale.x) - (player.transform.position.x + 0.5f * player.transform.localScale.x));
-		Debug.Log("Distance from player: " + Mathf.Min(d1, d2));
+		// checks the distance from player
+//		if (null != player)
+//		{
+//			float d1 = Mathf.Abs ((transform.position.x + 0.5f * transform.localScale.x) - (player.transform.position.x - 0.5f * player.transform.localScale.x));
+//			float d2 = Mathf.Abs ((transform.position.x - 0.5f * transform.localScale.x) - (player.transform.position.x + 0.5f * player.transform.localScale.x));
+//			Debug.Log("Distance from player: " + Mathf.Min(d1, d2));
+//		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other)
