@@ -1,10 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CheckPoints.cs">
     <Files>
-      <File FileName="Assets/Scripts/Player.cs" Line="268" Column="1" />
-      <File FileName="Assets/Scripts/EnemyController.cs" Line="84" Column="1" />
+      <File FileName="Assets/Scripts/IntroScript.cs" Line="23" Column="28" />
+      <File FileName="Assets/Scripts/Camera.cs" Line="9" Column="3" />
+      <File FileName="Assets/Scripts/Player.cs" Line="28" Column="28" />
+      <File FileName="Assets/Scripts/EnemyController.cs" Line="59" Column="6" />
+      <File FileName="Assets/Scripts/MainScript.cs" Line="29" Column="36" />
+      <File FileName="Assets/Scripts/CheckPoints.cs" Line="24" Column="3" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

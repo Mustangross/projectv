@@ -1,27 +1,32 @@
 using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour 
+public class Player : MonoBehaviour
 {
 	public float f_Speed = 10f;
 	public float f_MaxRunSpeed = 15f;
 	public float f_RunSpeedDecrement = 1f;
 	public float f_RunSpeed = 15f;
 	public float f_JumpIncreament = 7f;
+	public float f_JumpCurvature = 1.01f;
 	public float f_Jump = 0f;
-	public float f_MaxJump = 40f; 
-	public bool b_IsJumping = false;
-	private Rigidbody2D rb_RigidBody2D;
-	public bool b_Grounded = false;
+	public float f_MaxJump = 40f;
+	public Vector3 v3_LastCheckPoint;
 	private float f_Gravity;
+	public bool b_IsJumping = false;
+	public bool b_IsPlayerDead = false;
+	public bool b_Grounded = false;
+	private Rigidbody2D rb_RigidBody2D;
 	
 	
 	//Check this line of code in the future.
 	//move.rigidbody.velocity = transform.TransformDirection(Vector3.left * f_RunSpeed);
 	
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
+		//Set a Initial Position 
+		v3_LastCheckPoint = transform.position;
 		//Getting the RigidBodyComponent 
 		rb_RigidBody2D = GetComponent<Rigidbody2D> ();
 		//Saving the Original Gravity 
@@ -32,90 +37,104 @@ public class Player : MonoBehaviour
 	//void Update () 
 	void FixedUpdate ()
 	{
-		//MOVEMENT
-		Movement ();
+		//Disables Movement if Player is dead
+		if (b_IsPlayerDead == false)
+		{
+			//MOVEMENT
+			Movement ();
+		}
+		else
+		{
+			//DO SOMETHING
+			//Ensure the World Resets
+			//Ensure Player Goes Back to Latest checkpoint
+			//Ensure Sounds Involving the player no longer play
+			//Ensure Enemies understand the player is no longer alive
+			//Ensure a proper trasition happens between the player dying and world reseting
+			//Ensure the World timer resets
+			//Ensure the player becomes alive after reseting
+
+		}
 	}
 	
 	//Movement Function
 	void  Movement ()
 	{
-		//TURNING OFF GRAVITY 
-		if (b_Grounded == true) {
-			rb_RigidBody2D.gravityScale = 0f;
-		} else
-			rb_RigidBody2D.gravityScale = f_Gravity;
-		
-		//MOVING LEFT AND RIGHT
-		//Gets Left Arrow Input to move left
-		if(Input.GetKey(KeyCode.LeftArrow) == true)
-		{
-			//Ensure the Speed provided is the Run Speed and not the normal speed
-			if(Input.GetKey(KeyCode.LeftShift) && b_Grounded == true) // && Input.GetKey(KeyCode.LeftArrow) == true))
+			//TURNING OFF GRAVITY 
+			if (b_Grounded == true)
 			{
-				//Slowering when in the air
-				if(!b_Grounded && f_RunSpeed > f_Speed)
-					f_RunSpeed -= f_RunSpeedDecrement;
-				else
-					f_RunSpeed = f_MaxRunSpeed;
-				//rb_RigidBody2D.MovePosition (transform.position - transform.right * Time.deltaTime * f_RunSpeed);
-				transform.position = transform.position - transform.right * Time.deltaTime * f_RunSpeed;
-			}
-			else 
+				rb_RigidBody2D.gravityScale = 0f;
+			} else
+				rb_RigidBody2D.gravityScale = f_Gravity;
+			
+			//MOVING LEFT AND RIGHT
+			//Gets Left Arrow Input to move left
+			if (Input.GetKey (KeyCode.LeftArrow) == true)
 			{
-				//moves the Player to the left using the basic speed
-				//rb_RigidBody2D.MovePosition(transform.position.x - transform.right * Time.deltaTime * f_Speed);
-				transform.position = transform.position - transform.right * Time.deltaTime * f_Speed;
+				//Ensure the Speed provided is the Run Speed and not the normal speed
+				if (Input.GetKey (KeyCode.LeftShift) && b_Grounded == true) { // && Input.GetKey(KeyCode.LeftArrow) == true))
+					//Slowering when in the air
+					if (!b_Grounded && f_RunSpeed > f_Speed)
+						f_RunSpeed -= f_RunSpeedDecrement;
+					else
+						f_RunSpeed = f_MaxRunSpeed;
+					//rb_RigidBody2D.MovePosition (transform.position - transform.right * Time.deltaTime * f_RunSpeed);
+					transform.position = transform.position - transform.right * Time.deltaTime * f_RunSpeed;
+				} 
+				else 
+				{
+					//moves the Player to the left using the basic speed
+					//rb_RigidBody2D.MovePosition(transform.position.x - transform.right * Time.deltaTime * f_Speed);
+					transform.position = transform.position - transform.right * Time.deltaTime * f_Speed;
+				}
 			}
-		}
-		
-		//Gets Left Arrow Input to move right
-		if(Input.GetKey(KeyCode.RightArrow) == true)
-		{
-			//Ensure the Speed provided is the Run Speed and not the normal speed
-			if(Input.GetKey(KeyCode.LeftShift) && b_Grounded == true) // && Input.GetKey(KeyCode.LeftArrow) == true))
+			
+			//Gets Left Arrow Input to move right
+			if (Input.GetKey (KeyCode.RightArrow) == true) 
 			{
-				//Slowering when in the air
-				if(!b_Grounded && f_RunSpeed > f_Speed)
-					f_RunSpeed -= f_RunSpeedDecrement;
-				else
-					f_RunSpeed = f_MaxRunSpeed;
-				//rb_RigidBody2D.MovePosition (transform.position + transform.right * Time.deltaTime * f_RunSpeed);
-				transform.position = transform.position + transform.right * Time.deltaTime * f_RunSpeed;
+				//Ensure the Speed provided is the Run Speed and not the normal speed
+				if (Input.GetKey (KeyCode.LeftShift) && b_Grounded == true) { // && Input.GetKey(KeyCode.LeftArrow) == true))
+					//Slowering when in the air
+					if (!b_Grounded && f_RunSpeed > f_Speed)
+						f_RunSpeed -= f_RunSpeedDecrement;
+					else
+						f_RunSpeed = f_MaxRunSpeed;
+					//rb_RigidBody2D.MovePosition (transform.position + transform.right * Time.deltaTime * f_RunSpeed);
+					transform.position = transform.position + transform.right * Time.deltaTime * f_RunSpeed;
+				} 
+				else 
+				{
+					//moves the Player to the right using the basic speed
+					//rb_RigidBody2D.MovePosition (transform.position + transform.right * Time.deltaTime * f_Speed);
+					transform.position = transform.position + transform.right * Time.deltaTime * f_Speed;
+				}
 			}
-			else
+			
+			//JUMP
+			//Check if the user tap to jump and if the player was grounded
+			if (Input.GetKey (KeyCode.Space) == true && b_Grounded == true) 
+				b_IsJumping = true;
+			
+			//Incrementing Jump to make it smoother
+			if (f_Jump < f_MaxJump && b_IsJumping) 
 			{
-				//moves the Player to the right using the basic speed
-				//rb_RigidBody2D.MovePosition (transform.position + transform.right * Time.deltaTime * f_Speed);
-				transform.position = transform.position + transform.right * Time.deltaTime * f_Speed;
+				f_Jump += f_JumpIncreament * f_JumpCurvature;
+				rb_RigidBody2D.MovePosition (transform.position + transform.up * Time.deltaTime * f_Jump);
 			}
-		}
-		
-		//JUMP
-		//Check if the user tap to jump and if the player was grounded
-		if (Input.GetKey (KeyCode.Space) == true && b_Grounded == true) 
-			b_IsJumping = true;
-		
-		//Incrementing Jump to make it smoother
-		if (f_Jump < f_MaxJump && b_IsJumping) {
-			f_Jump += f_JumpIncreament;
-			rb_RigidBody2D.MovePosition (transform.position + transform.up * Time.deltaTime * f_Jump);
-		}
-		
-		//Understands that the user is no longer jumping and resets the jump speed
-		if (Input.GetKeyUp (KeyCode.Space)) {
-			b_IsJumping = false;
-			f_Jump = 0f;
-		}
-		
-		
-		
+			
+			//Understands that the user is no longer jumping and resets the jump speed
+			if (Input.GetKeyUp (KeyCode.Space))
+			{
+				b_IsJumping = false;
+				f_Jump = 0f;
+			}	
 	}
 	
 	//Check for when the Object enters the collison
-	void OnCollisionEnter2D(Collision2D c2D_Collision)
+	void OnCollisionEnter2D (Collision2D c2D_Collision)
 	{
 		//Checking if the Player is Grounded 
-		if (c2D_Collision.gameObject.tag == "Ground") 
+		if (c2D_Collision.gameObject.tag == "Ground")
 		{
 			b_Grounded = true;
 		}
@@ -123,10 +142,10 @@ public class Player : MonoBehaviour
 	}
 	
 	//Check for when the Object leaves the collison
-	void OnCollisionExit2D(Collision2D c2D_Collision)
+	void OnCollisionExit2D (Collision2D c2D_Collision)
 	{
 		//Checking if the Player is Grounded 
-		if(c2D_Collision.gameObject.tag == "Ground")
+		if (c2D_Collision.gameObject.tag == "Ground") 
 		{
 			b_Grounded = false;
 		}
