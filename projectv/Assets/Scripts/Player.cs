@@ -12,13 +12,13 @@ public class Player : MonoBehaviour
 	public float f_MaxJump = 40f; 
 	public bool b_IsJumping = false;
 	private Rigidbody2D rb_RigidBody2D;
-	private bool b_Grounded = false;
+	public bool b_Grounded = false;
 	private float f_Gravity;
-
-
+	
+	
 	//Check this line of code in the future.
 	//move.rigidbody.velocity = transform.TransformDirection(Vector3.left * f_RunSpeed);
-
+	
 	// Use this for initialization
 	void Start () 
 	{
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 		//MOVEMENT
 		Movement ();
 	}
-
+	
 	//Movement Function
 	void  Movement ()
 	{
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 			rb_RigidBody2D.gravityScale = 0f;
 		} else
 			rb_RigidBody2D.gravityScale = f_Gravity;
-
+		
 		//MOVING LEFT AND RIGHT
 		//Gets Left Arrow Input to move left
 		if(Input.GetKey(KeyCode.LeftArrow) == true)
@@ -89,28 +89,28 @@ public class Player : MonoBehaviour
 				transform.position = transform.position + transform.right * Time.deltaTime * f_Speed;
 			}
 		}
-
+		
 		//JUMP
 		//Check if the user tap to jump and if the player was grounded
 		if (Input.GetKey (KeyCode.Space) == true && b_Grounded == true) 
 			b_IsJumping = true;
-
+		
 		//Incrementing Jump to make it smoother
 		if (f_Jump < f_MaxJump && b_IsJumping) {
 			f_Jump += f_JumpIncreament;
 			rb_RigidBody2D.MovePosition (transform.position + transform.up * Time.deltaTime * f_Jump);
 		}
-
+		
 		//Understands that the user is no longer jumping and resets the jump speed
 		if (Input.GetKeyUp (KeyCode.Space)) {
 			b_IsJumping = false;
 			f_Jump = 0f;
 		}
-	
-
-
+		
+		
+		
 	}
-
+	
 	//Check for when the Object enters the collison
 	void OnCollisionEnter2D(Collision2D c2D_Collision)
 	{
@@ -119,9 +119,9 @@ public class Player : MonoBehaviour
 		{
 			b_Grounded = true;
 		}
-
+		
 	}
-
+	
 	//Check for when the Object leaves the collison
 	void OnCollisionExit2D(Collision2D c2D_Collision)
 	{
@@ -131,8 +131,8 @@ public class Player : MonoBehaviour
 			b_Grounded = false;
 		}
 	}
-
-
+	
+	
 }
 
 /*
