@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+	public int i_Lives = 2;
 	public float f_Speed = 10f;
 	public float f_MaxRunSpeed = 15f;
 	public float f_RunSpeedDecrement = 1f;
@@ -43,8 +44,10 @@ public class Player : MonoBehaviour
 			//MOVEMENT
 			Movement ();
 		}
-		else
+		else 
 		{
+			Debug.Log ("Died");
+			//Reduce Player lives
 			//DO SOMETHING
 			//Ensure the World Resets
 			//Ensure Player Goes Back to Latest checkpoint
@@ -53,6 +56,7 @@ public class Player : MonoBehaviour
 			//Ensure a proper trasition happens between the player dying and world reseting
 			//Ensure the World timer resets
 			//Ensure the player becomes alive after reseting
+
 
 		}
 	}
@@ -123,7 +127,7 @@ public class Player : MonoBehaviour
 			}
 			
 			//Understands that the user is no longer jumping and resets the jump speed
-			if (Input.GetKeyUp (KeyCode.Space))
+			if (Input.GetKeyUp (KeyCode.Space) || f_Jump >= f_MaxJump)
 			{
 				b_IsJumping = false;
 				f_Jump = 0f;
@@ -138,7 +142,14 @@ public class Player : MonoBehaviour
 		{
 			b_Grounded = true;
 		}
-		
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.tag == "Enemy")
+		{
+			b_IsJumping = true;
+		}
 	}
 	
 	//Check for when the Object leaves the collison

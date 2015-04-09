@@ -56,11 +56,15 @@ public class EnemyController : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player")
 		{
-			//Destroy (gameObject);
 			//Just Testing
 			Player p_Player = other.gameObject.GetComponent<Player>();
 			if(p_Player != null)
-				p_Player.b_IsPlayerDead = true;
+			{
+				if(p_Player.b_Grounded)
+					p_Player.b_IsPlayerDead = true;
+				else
+					Destroy (gameObject);
+			}
 		}
 	}
 

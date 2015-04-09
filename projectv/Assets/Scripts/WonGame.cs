@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class IntroScript : MonoBehaviour
+public class WonGame : MonoBehaviour
 {
+
 	// Use this for initialization
 	void Start ()
 	{
-		//Debug.Log ("screen width: " +Screen.width);
-		//Debug.Log ("screen width: " +Screen.height);
+	
 	}
 	
 	// Update is called once per frame
@@ -17,9 +17,12 @@ public class IntroScript : MonoBehaviour
 	}
 
 	void OnGUI()
-	{	
+	{
+		 GUI.TextField(new Rect(500, 100, 150, 20), "CONGRATULATIONS", 25);
 		//Find a fucking way to control the camera
-		if (GUI.Button (new Rect (500, 100, 200, 200), "Start"))
+		if (GUI.Button (new Rect (500, 120, 60, 20), "Restart"))
 			Application.LoadLevel ("Main");
+		if (GUI.Button (new Rect (500, 140, 60, 20), "Quit"))
+			Application.Quit ();
 	}
 }
