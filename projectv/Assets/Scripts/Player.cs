@@ -150,6 +150,19 @@ public class Player : MonoBehaviour
 		{
 			b_IsJumping = true;
 		}
+		else if (other.gameObject.tag == "Obstacle")
+		{
+			ObstacleController obstacle_controller = other.gameObject.GetComponent<ObstacleController>();
+			obstacle_controller.Triggered();
+			// TODO: set dead flag instead of destroying game object here
+			Destroy(gameObject);
+		}
+		else if (other.gameObject.tag == "Collectible")
+		{
+			CollectibleController collectible_controller = other.gameObject.GetComponent<CollectibleController>();
+			collectible_controller.Collected();
+			Destroy(other.gameObject);
+		}
 	}
 	
 	//Check for when the Object leaves the collison

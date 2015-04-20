@@ -49,12 +49,18 @@
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\CheckPoints.cs" />
      <Compile Include="Assets\Scripts\EndGame.cs" />
+     <Compile Include="Assets\Scripts\BossController.cs" />
+     <Compile Include="Assets\Scripts\CollectibleController.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\GoalAchieved.cs" />
      <Compile Include="Assets\Scripts\IntroScript.cs" />
      <Compile Include="Assets\Scripts\MainScript.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GearController.cs" />
+     <Compile Include="Assets\Scripts\ObstacleController.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\WonGame.cs" />
+     <Compile Include="Assets\Scripts\ScoreManager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
