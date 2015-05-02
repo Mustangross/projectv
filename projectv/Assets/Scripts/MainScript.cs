@@ -37,6 +37,7 @@ public class MainScript : MonoBehaviour
 		{
 			p_Player.transform.position = p_Player.v3_LastCheckPoint;
 			p_Player.b_IsPlayerDead = false;
+			p_Player.i_Health = p_Player.i_MaxHealth;
 			p_Player.i_Lives--;
 		}
 

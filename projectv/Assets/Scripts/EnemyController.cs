@@ -57,8 +57,9 @@ public class EnemyController : MonoBehaviour
 			Player p_Player = player_object.GetComponent<Player> ();
 			if(p_Player != null)
 			{
+				//Just testing for grounded players
 				if(p_Player.b_Grounded)
-					p_Player.b_IsPlayerDead = true;
+					p_Player.i_Health --;
 			}
 
 			f_health -= 1f;
