@@ -3,7 +3,10 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+	// Number of lives goes to game controller
 	public int i_Lives = 2;
+	public int i_Health = 0;
+	public int i_MaxHealth = 0;
 	public float f_Speed = 10f;
 	public float f_MaxRunSpeed = 15f;
 	public float f_RunSpeedDecrement = 1f;
@@ -39,13 +42,14 @@ public class Player : MonoBehaviour
 	void FixedUpdate ()
 	{
 		//Disables Movement if Player is dead
-		if (b_IsPlayerDead == false)
+		if (i_Health >= 0)
 		{
 			//MOVEMENT
 			Movement ();
 		}
 		else 
 		{
+			b_IsPlayerDead = true;
 			Debug.Log ("Died");
 			//Reduce Player lives
 			//DO SOMETHING
