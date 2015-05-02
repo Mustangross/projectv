@@ -6,6 +6,7 @@ public class GearController : MonoBehaviour
 	public float f_time_to_live = 3.0f;
 	bool activated = false;
 	bool grounded = false;
+	private GameObject collided_object = null;
 
 	// Use this for initialization
 	void Awake ()
@@ -22,6 +23,11 @@ public class GearController : MonoBehaviour
 			f_time_to_live -= Time.deltaTime;
 			if (0 >= f_time_to_live)
 			{
+				if (null != collided_object)
+				{
+					BaseGameObject a = collided_object.GetComponent<BaseGameObject>();
+					a.grounded = false;
+				}
 				Destroy(gameObject);
 			}
 		}
@@ -34,6 +40,17 @@ public class GearController : MonoBehaviour
 			grounded = true;
 			GetComponent<Rigidbody2D>().isKinematic = true;
 		}
+		else
+		{
+			collided_object = other.gameObject;
+			// need to determine if collided_object is on top
+//			collided_object.transform.position
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D other)
+	{
+		collided_object = null;
 	}
 
 	public void Activate()
