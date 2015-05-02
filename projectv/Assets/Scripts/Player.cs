@@ -127,7 +127,8 @@ public class Player : MonoBehaviour
 			if (f_Jump < f_MaxJump && b_IsJumping) 
 			{
 				f_Jump += f_JumpIncreament * f_JumpCurvature;
-				rb_RigidBody2D.MovePosition (transform.position + transform.up * Time.deltaTime * f_Jump);
+				// rb_RigidBody2D.MovePosition (transform.position + transform.up * Time.deltaTime * f_Jump);
+				transform.position += transform.up * Time.deltaTime * f_Jump;
 			}
 			
 			//Understands that the user is no longer jumping and resets the jump speed
