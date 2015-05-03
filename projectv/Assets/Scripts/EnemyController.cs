@@ -54,64 +54,70 @@ public class EnemyController : BaseEnemyObject
 
 	void Patrol()
 	{
-		if (f_pause_countdown > 0)
+		if (0 < f_Health)
 		{
-			f_pause_countdown -= Time.deltaTime;
-		}
-		else
-		{
-			Vector3 pos = transform.position;
-			pos.x += i_movement_direction * f_movement_speed;
-			transform.position = pos;
-			if (pos.x >= check_point.x + f_travel_distance || pos.x <= check_point.x) {
-				i_movement_direction = -i_movement_direction;
-				f_pause_countdown = f_pause_interval;
+			if (f_pause_countdown > 0)
+			{
+				f_pause_countdown -= Time.deltaTime;
+			}
+			else
+			{
+				Vector3 pos = transform.position;
+				pos.x += i_movement_direction * f_movement_speed;
+				transform.position = pos;
+				if (pos.x >= check_point.x + f_travel_distance || pos.x <= check_point.x) {
+					i_movement_direction = -i_movement_direction;
+					f_pause_countdown = f_pause_interval;
+				}
 			}
 		}
 	}
 
 	void Pursue()
 	{
-		Player player = player_object.GetComponent<Player> ();
-		f_pause_countdown = 0;
+		if (0 < f_Health)
+		{
+			Player player = player_object.GetComponent<Player> ();
+			f_pause_countdown = 0;
 
-		if (true == player.grounded)
-		{
-			// if player's grounded, chase after him
-			float pos_diff_sign = Mathf.Sign(player_object.transform.position.x - transform.position.x);
-			i_movement_direction = pos_diff_sign < 0 ? -1 : 1;
-			transform.position += new Vector3(i_movement_direction * f_movement_speed, 0, 0);
-		}
-		else
-		{
-			// player is airborne
-			switch (i_ai_level)
+			if (true == player.grounded)
 			{
-			case 1:
+				// if player's grounded, chase after him
+				float pos_diff_sign = Mathf.Sign(player_object.transform.position.x - transform.position.x);
+				i_movement_direction = pos_diff_sign < 0 ? -1 : 1;
+				transform.position += new Vector3(i_movement_direction * f_movement_speed, 0, 0);
+			}
+			else
+			{
+				// player is airborne
+				switch (i_ai_level)
 				{
-					// continue forward
-					transform.position += new Vector3(i_movement_direction * f_movement_speed, 0, 0);
+				case 1:
+					{
+						// continue forward
+						transform.position += new Vector3(i_movement_direction * f_movement_speed, 0, 0);
+					}
+					break;
+				case 2:
+					{
+						// continue forward at 1/2 speed
+						transform.position += new Vector3(0.5f * i_movement_direction * f_movement_speed, 0, 0);
+					}
+					break;
+				case 3:
+					{
+						// stop
+					}
+					break;
+				case 4:
+					{
+						// back up at 1/2 speed
+						transform.position += new Vector3(-0.5f * i_movement_direction * f_movement_speed, 0, 0);
+					}
+					break;
+				default:
+					break;
 				}
-				break;
-			case 2:
-				{
-					// continue forward at 1/2 speed
-					transform.position += new Vector3(0.5f * i_movement_direction * f_movement_speed, 0, 0);
-				}
-				break;
-			case 3:
-				{
-					// stop
-				}
-				break;
-			case 4:
-				{
-					// back up at 1/2 speed
-					transform.position += new Vector3(-0.5f * i_movement_direction * f_movement_speed, 0, 0);
-				}
-				break;
-			default:
-				break;
 			}
 		}
 	}

@@ -28,24 +28,28 @@ public class BaseEnemyObject : BaseGameObject
 	{
 		if (other.gameObject.tag == "Player")
 		{
+			Vector3 collision_point = other.bounds.ClosestPoint(transform.position);
+			float stomp_test = Vector3.Dot(Vector3.up, (collision_point - transform.position).normalized);
+			Debug.Log (stomp_test);
+
 			Player p_Player = player_object.GetComponent<Player> ();
 			if(p_Player != null)
 			{
-				Vector3 collision_point = other.bounds.ClosestPoint(transform.position);
-				float stomp_test = Vector3.Dot(Vector3.up, (collision_point - transform.position).normalized);
-				Debug.Log (stomp_test);
 				if(0.6f > stomp_test)
 				{
 					p_Player.health--;
 				}
 			}
-			
-			f_Health -= 1f;
-			if (0 >= f_Health)
+
+			if (0.6f <= stomp_test)
 			{
-				// update score
-				GameManager.AddScore(worth);
-				Destroy (gameObject, 0.1f);
+				f_Health -= 1f;
+				if (0 >= f_Health)
+				{
+					// update score
+					GameManager.AddScore(worth);
+					Destroy (gameObject, 0.01f);
+				}
 			}
 		}
 	}
