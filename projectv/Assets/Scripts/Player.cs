@@ -144,6 +144,16 @@ public class Player : BaseGameObject
 		}
 	}
 
+	//Check for when the Object leaves the collison
+	void OnCollisionExit2D (Collision2D c2D_Collision)
+	{
+		//Checking if the Player is Grounded 
+		if (c2D_Collision.gameObject.tag == "Ground") 
+		{
+			b_Grounded = false;
+		}
+	}
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Enemy")
@@ -164,6 +174,75 @@ public class Player : BaseGameObject
 			Destroy(other.gameObject);
 		}
 	}
+<<<<<<< HEAD
+}
+
+/*
+using UnityEngine;
+using System.Collections;
+
+public class Player : MonoBehaviour 
+{
+	public float f_Speed = 10f;
+	public float f_RunSpeed = 18f;
+	public float f_Jump = 100f; 
+	public Rigidbody2D rb_RigidBody2D;
+	public bool b_Grounded = false;
+	private float f_Gravity;
+	
+	public float f_airborne_speed_attenuation = 0.1f;
+	public float f_horizontal_jump_force = 50.0f;
+	public float f_running_horizontal_jump_multiplier = 1.5f;
+	
+	//Check this line of code in the future.
+	//move.rigidbody.velocity = transform.TransformDirection(Vector3.left * f_RunSpeed);
+	
+	// Use this for initialization
+	void Start () 
+	{
+		//Getting the RigidBodyComponent 
+		rb_RigidBody2D = GetComponent<Rigidbody2D> ();
+		//Saving the Original Gravity 
+		f_Gravity = rb_RigidBody2D.gravityScale;
+	}
+	
+	// Update is called once per frame
+	//void Update () 
+	void FixedUpdate ()
+	{
+		//MOVEMENT
+		Movement ();
+		
+	}
+	
+	//Movement Function
+	void  Movement ()
+	{
+		//TURNING OFF GRAVITY 
+		if (b_Grounded == true) {
+			rb_RigidBody2D.gravityScale = 0f;
+		} else
+			rb_RigidBody2D.gravityScale = f_Gravity;
+		
+		float adjusted_speed = f_Speed;
+		float adjusted_run_speed = f_RunSpeed;
+		if (false == b_Grounded)
+		{
+			adjusted_speed *= f_airborne_speed_attenuation;
+			adjusted_run_speed *= f_airborne_speed_attenuation;
+		}
+		
+		//MOVING LEFT AND RIGHT
+		if(true == Input.GetKey(KeyCode.LeftArrow) || true == Input.GetKey(KeyCode.RightArrow))
+		{
+			//moves the Player using the basic speed
+			Vector3 direction;
+			if(true == Input.GetKey(KeyCode.LeftArrow))
+			{
+				direction = -transform.right;
+			}
+			else
+=======
 
 	//Check for when the Object leaves the collison
 	void OnCollisionExit2D (Collision2D c2D_Collision)
@@ -174,6 +253,7 @@ public class Player : BaseGameObject
 			// determines if ground is at the bottom
 			bool is_under = true;
 			foreach (ContactPoint2D p in c2D_Collision.contacts)
+>>>>>>> eb243358a8edf23badb97341943d5d5fc11deae8
 			{
 				if (1f != p.normal.y)
 				{
