@@ -9,6 +9,10 @@ public class BaseGameObject : MonoBehaviour
 	public bool b_Grounded = false;
 	public Vector2 v2_LastCheckPoint;	// this is the spawn position for most objects
 
+	protected virtual void _init()
+	{
+	}
+
 	public float health
 	{
 		get { return f_Health; }
@@ -21,7 +25,7 @@ public class BaseGameObject : MonoBehaviour
 	public float max_health
 	{
 		get { return f_MaxHealth; }
-		set
+		protected set
 		{
 			if (0 < value)
 			{
@@ -33,7 +37,7 @@ public class BaseGameObject : MonoBehaviour
 	public bool jumping
 	{
 		get { return b_IsJumping; }
-		set
+		protected set
 		{
 			b_IsJumping = value;
 		}

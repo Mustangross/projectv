@@ -1,27 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossController : BaseGameObject
+public class BossController : BaseEnemyObject
 {
-	private int i_movement_direction = 1;
-	public float f_movement_speed = 0.05f;
-	public float f_travel_distance = 5.0f;
-	public int i_ai_level = 1;
-
-	public int worth = 100;
-
-	private GameObject player_object;
-
 	// Use this for initialization
 	void Start ()
 	{
-		player_object = GameObject.FindGameObjectWithTag ("Player");
-		if (null == player_object)
-		{
-			Debug.Log("Cannot find Player object!");
-		}
-		transform.position = check_point;
-		f_Health = 3.0f;
+		_init ();
 	}
 	
 	// Update is called once per frame
@@ -40,18 +25,7 @@ public class BossController : BaseGameObject
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Player")
-		{
-			// if taken damage
-			f_Health -= 1f;
-			if (0 >= f_Health)
-			{
-				// update score
-				GameManager.AddScore(worth);
-
-				Destroy (gameObject);
-			}
-		}
+		trigger_enter_2D (other);
 	}
 
 	void Pursue()

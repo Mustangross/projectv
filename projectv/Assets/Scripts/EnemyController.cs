@@ -1,33 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyController : BaseGameObject
+public class EnemyController : BaseEnemyObject
 {
-	private int i_movement_direction = 1;
-	public int i_initial_movement_direction = 1;
-	public float f_movement_speed = 0.05f;
-	public float f_travel_distance = 5.0f;
 	private float f_pause_countdown = 0.0f;
 	public float f_pause_interval = 1.0f;
 	public bool b_patrolling = true;
-	public int i_ai_level = 1;
-
-	public int worth = 10;
-
-	private GameObject player_object;
 
 	// Use this for initialization
-	void Start ()
+	protected override void _init ()
 	{
-		player_object = GameObject.FindGameObjectWithTag ("Player");
-		if (null == player_object)
-		{
-			Debug.Log("Cannot find Player object!");
-		}
-		i_movement_direction = i_initial_movement_direction;
-		transform.position = check_point;
+		base._init ();
 		f_pause_countdown = 0.0f;
-		f_Health = 1.0f;
+	}
+
+	void Start()
+	{
+		_init ();
 	}
 	
 	// Update is called once per frame
@@ -50,34 +39,15 @@ public class EnemyController : BaseGameObject
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Player")
+		trigger_enter_2D (other);
+
+		if (0 >= f_Health)
 		{
-			Player p_Player = player_object.GetComponent<Player> ();
-			if(p_Player != null)
+			// if has Gear as a child, turn off kinematic and enable GearController
+			GearController gear_controller = GetComponentInChildren<GearController>();
+			if (null != gear_controller)
 			{
-				Vector3 collision_point = other.bounds.ClosestPoint(transform.position);
-				float stomp_test = Vector3.Dot(Vector3.up, (collision_point - transform.position).normalized);
-				Debug.Log (stomp_test);
-				if(0.6f > stomp_test)
-				{
-					p_Player.health--;
-				}
-			}
-
-			f_Health -= 1f;
-			if (0 >= f_Health)
-			{
-				// if has Gear as a child, turn off kinematic and enable GearController
-				GearController gear_controller = GetComponentInChildren<GearController>();
-				if (null != gear_controller)
-				{
-					gear_controller.Activate();
-				}
-
-				// update score
-				GameManager.AddScore(worth);
-
-				Destroy (gameObject);
+				gear_controller.Activate();
 			}
 		}
 	}
