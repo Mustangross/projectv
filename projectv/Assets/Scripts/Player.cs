@@ -29,7 +29,6 @@ public class Player : BaseGameObject
 		rb_RigidBody2D = GetComponent<Rigidbody2D> ();
 		//Saving the Original Gravity 
 		f_Gravity = rb_RigidBody2D.gravityScale;
-		f_Health = 10.0f;
 	}
 	
 	// Update is called once per frame
@@ -45,7 +44,6 @@ public class Player : BaseGameObject
 		else 
 		{
 			b_IsPlayerDead = true;
-			Debug.Log ("Died");
 			//Reduce Player lives
 			//DO SOMETHING
 			//Ensure the World Resets
