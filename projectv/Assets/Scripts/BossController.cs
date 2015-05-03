@@ -1,28 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossController : MonoBehaviour
+public class BossController : BaseEnemyObject
 {
-	public Vector2 spawn_position = new Vector2(5.0f, 1.0f);
-	private int i_movement_direction = 1;
-	public float f_movement_speed = 0.05f;
-	public float f_travel_distance = 5.0f;
-	public int i_ai_level = 1;
-
-	public float f_health = 3.0f;
-	public int worth = 100;
-
-	private GameObject player_object;
-
 	// Use this for initialization
 	void Start ()
 	{
-		player_object = GameObject.FindGameObjectWithTag ("Player");
-		if (null == player_object)
-		{
-			Debug.Log("Cannot find Player object!");
-		}
-		transform.position = spawn_position;
+		_init ();
 	}
 	
 	// Update is called once per frame
@@ -41,25 +25,14 @@ public class BossController : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.tag == "Player")
-		{
-			// if taken damage
-			f_health -= 1f;
-			if (0 >= f_health)
-			{
-				// update score
-				GameManager.AddScore(worth);
-
-				Destroy (gameObject);
-			}
-		}
+		trigger_enter_2D (other);
 	}
 
 	void Pursue()
 	{
 		Player player = player_object.GetComponent<Player> ();
 	
-		if (true == player.b_Grounded)
+		if (true == player.grounded)
 		{
 			// if player's grounded, chase after him
 			float pos_diff_sign = Mathf.Sign(player_object.transform.position.x - transform.position.x);
