@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CollectibleController : BaseGameObject
+public class CollectibleController : MonoBehaviour
 {
 	public Vector2 position;
 	public int worth = 10;

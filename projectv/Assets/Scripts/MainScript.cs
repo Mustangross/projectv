@@ -35,9 +35,9 @@ public class MainScript : MonoBehaviour
 		// Check if the Player died and reset his position to the previous checkpoint
 		if (p_Player.b_IsPlayerDead)
 		{
-			p_Player.transform.position = p_Player.check_point;
+			p_Player.transform.position = p_Player.v3_LastCheckPoint;
 			p_Player.b_IsPlayerDead = false;
-			p_Player.health = p_Player.max_health;
+			p_Player.i_Health = p_Player.i_MaxHealth;
 			p_Player.i_Lives--;
 		}
 
