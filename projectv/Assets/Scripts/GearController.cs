@@ -42,9 +42,21 @@ public class GearController : MonoBehaviour
 		}
 		else
 		{
-			collided_object = other.gameObject;
-			// need to determine if collided_object is on top
-//			collided_object.transform.position
+			// determines if colliding object falls on top
+			bool is_on_top = true;
+			foreach (ContactPoint2D p in other.contacts)
+			{
+				Debug.Log(p.normal);
+				if (-1f != p.normal.y)
+				{
+					is_on_top = false;
+					break;
+				}
+			}
+			if (true == is_on_top)
+			{
+				collided_object = other.gameObject;
+			}
 		}
 	}
 

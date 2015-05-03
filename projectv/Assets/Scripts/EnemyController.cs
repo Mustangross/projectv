@@ -52,13 +52,16 @@ public class EnemyController : BaseGameObject
 	{
 		if (other.gameObject.tag == "Player")
 		{
-			//Just Testing
 			Player p_Player = player_object.GetComponent<Player> ();
 			if(p_Player != null)
 			{
-				//Just testing for grounded players
-				if(p_Player.grounded)
+				Vector3 collision_point = other.bounds.ClosestPoint(transform.position);
+				float stomp_test = Vector3.Dot(Vector3.up, (collision_point - transform.position).normalized);
+				Debug.Log (stomp_test);
+				if(0.6f > stomp_test)
+				{
 					p_Player.health--;
+				}
 			}
 
 			f_Health -= 1f;

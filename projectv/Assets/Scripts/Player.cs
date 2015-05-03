@@ -37,7 +37,7 @@ public class Player : BaseGameObject
 	void FixedUpdate ()
 	{
 		//Disables Movement if Player is dead
-		if (f_Health >= 0)
+		if (f_Health > 0)
 		{
 			//MOVEMENT
 			Movement ();
@@ -171,7 +171,20 @@ public class Player : BaseGameObject
 		//Checking if the Player is Grounded 
 		if (c2D_Collision.gameObject.tag == "Ground") 
 		{
-			b_Grounded = false;
+			// determines if ground is at the bottom
+			bool is_under = true;
+			foreach (ContactPoint2D p in c2D_Collision.contacts)
+			{
+				if (1f != p.normal.y)
+				{
+					is_under = false;
+					break;
+				}
+			}
+			if (true == is_under)
+			{
+				b_Grounded = false;
+			}
 		}
 	}
 }
