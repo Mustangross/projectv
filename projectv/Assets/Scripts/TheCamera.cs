@@ -24,8 +24,10 @@ public class TheCamera : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
 	{
+
+		Debug.Log (p_Player.transform.position.x - v3_InitialCameraPosition.x);
 		if ((p_Player.transform.position.x - transform.position.x) > i_Deadzone) 
 		{
 			//v3_InitialCameraOffset = transform.position - p_Player.transform.position;
