@@ -149,6 +149,16 @@ public class Player : MonoBehaviour
 		}
 	}
 
+	//Check for when the Object leaves the collison
+	void OnCollisionExit2D (Collision2D c2D_Collision)
+	{
+		//Checking if the Player is Grounded 
+		if (c2D_Collision.gameObject.tag == "Ground") 
+		{
+			b_Grounded = false;
+		}
+	}
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.gameObject.tag == "Enemy")
@@ -169,18 +179,6 @@ public class Player : MonoBehaviour
 			Destroy(other.gameObject);
 		}
 	}
-	
-	//Check for when the Object leaves the collison
-	void OnCollisionExit2D (Collision2D c2D_Collision)
-	{
-		//Checking if the Player is Grounded 
-		if (c2D_Collision.gameObject.tag == "Ground") 
-		{
-			b_Grounded = false;
-		}
-	}
-	
-	
 }
 
 /*
